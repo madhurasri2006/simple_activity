@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Delivery</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background: #f5f5f5
+        }
+        header {
+            background: #ff4d4d;
+            color: white;
+            text-align: center;
+            padding: 20px
+        }
+        .container {
+            padding: 20px
+        }
+        .restaurants, .foods {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap
+        }
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            width: 200px;
+            box-shadow: 0 2px 6px #aaa;
+            text-align: center
+        }
+            .card img {
+                width: 100%;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 8px
+            }
+        button {
+            background: #ff4d4d;
+            color: white;
+            border: 0;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer
+        }
+        #menu, #cart {
+            margin-top: 25px
+        }
+        #cart {
+            background: white;
+            padding: 15px;
+            border-radius: 10px
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🍴 FoodExplore</h1>
+        <p>Order your favourite food</p>
+    </header>
+    <div class="container">
+        <h2>Restaurants</h2>
+        <div class="restaurants">
+            <div class="card" onclick="showMenu('Dominos')">
+                <img src=dominos.jpg />
+                <h3>Dominos</h3>
+                <button>View Menu</button>
+            </div>
+            <div class="card" onclick="showMenu('Pizza Hut')">
+                <img src=ph.jpg>
+                <h3>Pizza Hut</h3>
+                <button>View Menu</button>
+            </div>
+            <div class="card" onclick="showMenu('A2B')">
+                <img src=a2b.jpg>
+                <h3>A2B</h3>
+                <button>View Menu</button>
+            </div>
+            <div class="card" onclick="showMenu('Indian Kitchen')">
+                <img src=ik.jpg>
+                <h3>Indian Kitchen</h3>
+                <button>View Menu</button>
+            </div>
+            <div class="card" onclick="showMenu('Kongu Porota')">
+                <img src=kon.jpg>
+                <h3>Kongu Porota</h3>
+                <button>View Menu</button>
+            </div>
+            <div class="card" onclick="showMenu('Fresh Juice')">
+                <img src=fj.jpg>
+                <h3>Fresh Juice</h3>
+                <button>View Menu</button>
+            </div>
+        </div>
+        <div id="menu">
+            <h2>Food Menu</h2>
+            <div class="foods" id="foods"></div>
+        </div>
+        <div id="cart">
+            <h2>🛒 Cart</h2>
+            <p id="cartItems">No items added</p>
+            <h3>Total: ₹<span id="total">0</span></h3>
+            <button onclick="order()">Place Order</button>
+        </div>
+    </div>
+    <script>
+let total=0;
+let items=[];
+let menu={
+    "Dominos": [
+        ["Cheese Pizza", 299, "cp.jpg"],
+        ["Chicken Pizza",199,"chp.jpg"],
+        ["Burger",149,"vb.jpg"],
+        ["Garlic Bread", 99, "gb.jpg"]
+],
+"Pizza Hut":[
+["Cheese Pizza",349,"cp.jpg"],
+["Pasta",199,"p.jpg"],
+    ["Sandwich", 99, "sw.jpg"],
+["Tandoori",129,"tan.jpg"]
+],
+"A2B":[
+    ["Dosa", 80, "roast.jpg"],
+    ["Ghee Kara Dosa", 100,"kara dosa.jpg"],
+    ["Podi Dosa", 90,"podi dosa.jpg"],
+    ["Masala Dosa", 80, "masala-dosa.webp"],
+    ["Mini Tiffin", 99, "mini tif.jpg"]
+    ],
+"Indian Kitchen": [
+    ["chicken Briyani", 120, "chicken briyani.jpg"],
+    ["Mutton Briyani", 149, "Mutton-Biryani.jpg"],
+    ["Briyani", 100, "veg briyani.jpg.webp"],
+    ["Porota", 40, "porota.jpg"],
+    ["Bucket Briyani",299,"buc chi bri.avif"]
+    ],
+ "Kongu Porota":[
+        ["Porota", 40, "porotaaa.jpg"],
+        ["Nool Porota", 50, "nool porota.jpg"],
+        ["Egg Porota", 89, "egg kothu-parotta.jpg"],
+     ["Bun Porota", 60, "bun porota.jpg"],
+        ["Veg Kothu Porota",79,"veg kothu-parotta.jpg"]
+    ],
+    "Fresh Juice": [
+        ["Muskmelon Juice", 50, "muskmelon_juice.jpg"],
+        ["Promegranate Juice", 50, "proma.jpg"],
+        ["Pineapple Juice", 45, "pineapple.jpg"],
+        ["Watermelon", 35, "wateme.jpg"],
+        ["Mango Juice", 30, "mango-juice.jpg"],
+        ["Apple Juice", 35, "APPLE-JUICE.jpg"],
+        ["Amla Juice",39,"a.avif"]
+]
+};
+function showMenu(name){
+let f=document.getElementById("foods");
+f.innerHTML="";
+menu[name].forEach(x=>{
+f.innerHTML+=`
+<div class="card">
+<img src="${x[2]}">
+<h3>${x[0]}</h3>
+<p>₹${x[1]}</p>
+<button onclick="add('${x[0]}',${x[1]})">
+Add to Cart
+</button>
+</div>`;
+});
+}
+function add(name,price){
+items.push(name);
+total+=price;
+document.getElementById("cartItems").innerHTML=items.join(", ");
+document.getElementById("total").innerText=total;
+}
+function order(){
+if(items.length==0)
+alert("Please add food to cart");
+else
+alert("Order placed successfully!");
+}
+    </script>
+</body>
+</html>
